@@ -1,0 +1,2 @@
+// ClipForge text track helpers
+window.ClipForgeText={create:function(state,text,start,end){return {id:Math.random().toString(36).slice(2,9),label:text||'Nuevo texto',start:start||0,end:end||Math.min(state.duration,(start||0)+3),text:text||'Tu texto',font:'Arial',size:64,color:'#ffffff',position:'bottom',bold:true}}};
