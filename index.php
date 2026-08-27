@@ -7,6 +7,7 @@
 <title>ClipForge — Editor de Reels</title>
 <link rel="stylesheet" href="assets/app.css?v=9">
 <link rel="stylesheet" href="assets/drag-v4.css?v=2">
+<link rel="stylesheet" href="assets/timeline-pro.css?v=1">
 </head>
 <body>
 <header class="topbar">
@@ -46,7 +47,9 @@
     <div class="timeline-wrap" id="timelineScroll"><div class="timeline-canvas" id="timelineCanvas">
       <div class="ruler-row"><div class="track-label ruler-label"></div><div class="ruler" id="ruler"></div></div>
       <div class="timeline-body" id="tracks">
-        <div class="timeline-placeholder-track"><div class="track-label"></div><div class="lane"></div></div>
+        <div class="track-row legacy-track" data-track="video"><div class="track-label"><span class="track-icon video">▸</span><div><b>VIDEO</b><small>compatibilidad</small></div></div><div class="lane" id="videoLane"></div></div>
+        <div class="track-row legacy-track" data-track="audio"><div class="track-label"><span class="track-icon audio">♪</span><div><b>AUDIO</b><small>compatibilidad</small></div></div><div class="lane" id="audioLane"></div></div>
+        <div class="track-row legacy-track" data-track="text"><div class="track-label"><span class="track-icon text">T</span><div><b>TEXTO</b><small>compatibilidad</small></div></div><div class="lane" id="textLane"></div></div>
         <div id="silenceLayer" class="silence-layer"></div>
         <div id="playhead" class="playhead"><span></span></div>
       </div>
