@@ -1,7 +1,8 @@
 <?php
-// ClipForge - configuración local para XAMPP + FFmpeg.
-// Busca FFmpeg de forma flexible para que ClipForge no dependa del PATH de Windows.
+// ClipForge - configuración local. Puede ejecutarse con XAMPP o desde la app de escritorio.
+$envFfmpeg = getenv('CLIPFORGE_FFMPEG');
 $ffmpegCandidates = [
+    $envFfmpeg ?: '',
     dirname(__DIR__) . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'ffmpeg.exe',
     'C:\\ffmpeg\\bin\\ffmpeg.exe',
     'C:\\ffmpeg\\ffmpeg-9.0.1-essentials_build\\bin\\ffmpeg.exe',
@@ -10,7 +11,7 @@ $ffmpegCandidates = [
 ];
 $ffmpeg = 'ffmpeg';
 foreach ($ffmpegCandidates as $candidate) {
-    if ($candidate === 'ffmpeg' || is_file($candidate)) {
+    if ($candidate && ($candidate === 'ffmpeg' || is_file($candidate))) {
         $ffmpeg = $candidate;
         break;
     }
