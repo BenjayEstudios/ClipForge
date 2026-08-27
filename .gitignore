@@ -1,0 +1,4 @@
+storage/videos/*
+storage/outputs/*
+!storage/videos/.gitkeep
+!storage/outputs/.gitkeep
