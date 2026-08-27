@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ClipForge — Reel Editor</title>
 <link rel="stylesheet" href="assets/app.css?v=6">
-<link rel="stylesheet" href="assets/light-theme.css?v=2">
+<link rel="stylesheet" href="assets/light-theme.css?v=3">
+<link rel="stylesheet" href="assets/context.css?v=1">
 </head>
 <body>
 <header class="topbar">
