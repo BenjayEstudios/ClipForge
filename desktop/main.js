@@ -22,6 +22,7 @@ function findPhp() {
 
 function findFfmpeg() {
   const candidates = [
+    process.env.CLIPFORGE_FFMPEG,
     path.join(process.resourcesPath || '', 'runtime', 'ffmpeg.exe'),
     'C:\\ffmpeg\\ffmpeg-9.0.1-essentials_build\\bin\\ffmpeg.exe',
     'C:\\ffmpeg\\bin\\ffmpeg.exe',
@@ -44,7 +45,7 @@ function findFreePort() {
 function webRoot() {
   return app.isPackaged
     ? path.join(process.resourcesPath, 'web')
-    : path.resolve(__dirname, '..');
+    : path.resolve(__dirname, 'web');
 }
 
 async function startPhpServer() {
@@ -54,7 +55,7 @@ async function startPhpServer() {
       type: 'error',
       title: 'ClipForge no encuentra PHP',
       message: 'No se encontró PHP.',
-      detail: 'Para esta primera versión de escritorio instala XAMPP en C:\\xampp o coloca php.exe en desktop\\runtime. FFmpeg puede estar en C:\\ffmpeg.',
+      detail: 'Esta versión usa temporalmente PHP como motor local. Instala XAMPP en C:\\xampp o coloca php.exe en desktop\\runtime.',
       buttons: ['Abrir descarga de XAMPP', 'Cerrar']
     });
     if (result.response === 0) shell.openExternal('https://www.apachefriends.org/download.html');
@@ -64,8 +65,12 @@ async function startPhpServer() {
   const ffmpeg = findFfmpeg();
   if (ffmpeg) process.env.CLIPFORGE_FFMPEG = ffmpeg;
 
-  const port = await findFreePort();
   const root = webRoot();
+  if (!fs.existsSync(path.join(root, 'index.php'))) {
+    throw new Error(`No se encontraron los archivos web de ClipForge en: ${root}`);
+  }
+
+  const port = await findFreePort();
   phpProcess = spawn(php, ['-S', `127.0.0.1:${port}`, '-t', root], {
     cwd: root,
     windowsHide: true,
@@ -73,9 +78,13 @@ async function startPhpServer() {
   });
 
   phpProcess.stderr.on('data', data => console.log('[PHP]', data.toString()));
+  phpProcess.on('error', err => console.error('[PHP process error]', err));
   phpProcess.on('exit', code => {
     if (code && !app.isQuitting) console.error('PHP exited:', code);
   });
+
+  // Give the PHP development server a moment to bind before loading Electron.
+  await new Promise(resolve => setTimeout(resolve, 300));
   return `http://127.0.0.1:${port}/index.php`;
 }
 
@@ -88,17 +97,27 @@ async function createWindow() {
     minHeight: 700,
     backgroundColor: '#0b0d12',
     autoHideMenuBar: true,
+    show: false,
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false
     }
   });
+
+  mainWindow.webContents.on('did-fail-load', (_event, code, description, validatedURL) => {
+    dialog.showErrorBox('ClipForge no pudo cargar', `Código: ${code}\n${description}\n\n${validatedURL}`);
+  });
+  mainWindow.webContents.on('render-process-gone', (_event, details) => {
+    dialog.showErrorBox('ClipForge', `El proceso de la interfaz terminó inesperadamente: ${details.reason}`);
+  });
+
   mainWindow.loadURL(url);
+  mainWindow.once('ready-to-show', () => mainWindow.show());
   mainWindow.on('closed', () => { mainWindow = null; });
 }
 
 app.whenReady().then(createWindow).catch(err => {
-  dialog.showErrorBox('ClipForge', err.message);
+  dialog.showErrorBox('ClipForge', err.stack || err.message);
   app.quit();
 });
 
