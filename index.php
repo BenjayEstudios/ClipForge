@@ -5,8 +5,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ClipForge — Editor de Reels</title>
-<link rel="stylesheet" href="assets/app.css?v=8">
-<link rel="stylesheet" href="assets/drag-v4.css?v=1">
+<link rel="stylesheet" href="assets/app.css?v=9">
+<link rel="stylesheet" href="assets/drag-v4.css?v=2">
 </head>
 <body>
 <header class="topbar">
@@ -46,9 +46,7 @@
     <div class="timeline-wrap" id="timelineScroll"><div class="timeline-canvas" id="timelineCanvas">
       <div class="ruler-row"><div class="track-label ruler-label"></div><div class="ruler" id="ruler"></div></div>
       <div class="timeline-body" id="tracks">
-        <div class="track-row" data-track="video"><div class="track-label"><span class="track-icon video">▸</span><div><b>VIDEO</b><small>principal</small></div><button class="track-state" title="Bloquear pista">♙</button></div><div class="lane" id="videoLane"></div></div>
-        <div class="track-row" data-track="audio"><div class="track-label"><span class="track-icon audio">♪</span><div><b>AUDIO</b><small>voz / música</small></div><button class="track-state" title="Bloquear pista">♙</button></div><div class="lane" id="audioLane"></div></div>
-        <div class="track-row" data-track="text"><div class="track-label"><span class="track-icon text">T</span><div><b>TEXTO</b><small>títulos / subtítulos</small></div><button class="track-state" title="Bloquear pista">♙</button></div><div class="lane" id="textLane"></div></div>
+        <div class="timeline-placeholder-track"><div class="track-label"></div><div class="lane"></div></div>
         <div id="silenceLayer" class="silence-layer"></div>
         <div id="playhead" class="playhead"><span></span></div>
       </div>
@@ -61,5 +59,5 @@
 <input id="videoInput" type="file" accept="video/*" hidden>
 <input id="audioInput" type="file" accept="audio/*,video/*" hidden>
 <input id="projectInput" type="file" accept="application/json,.json,.clipforge" hidden>
-<script src="assets/editor-entry.js?v=2"></script>
+<script src="assets/editor-entry.js?v=3"></script>
 </body></html>
