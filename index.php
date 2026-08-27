@@ -13,13 +13,13 @@
 </header>
 <main class="workspace">
 <section class="hero">
-  <div><p class="eyebrow">SHORTS · REELS · TIKTOK</p><h1>Edita para retener, no solo para cortar.</h1><p class="muted">Importa el video y la música por separado. ClipForge los mantiene en pistas independientes para construir el montaje sin complicar el flujo.</p></div>
+  <div><p class="eyebrow">SHORTS · REELS · TIKTOK</p><h1>Edita para retener, no solo para cortar.</h1><p class="muted">Importa el video principal y añade una pista de audio independiente. En la pista de audio también puedes subir un video y ClipForge extraerá únicamente su sonido.</p></div>
   <div class="import-actions">
-    <label class="upload-btn"><input id="videoInput" type="file" accept="video/mp4,video/webm,video/quicktime,video/x-msvideo,video/x-matroska"><span>＋ Video</span></label>
-    <label class="upload-btn secondary"><input id="audioInput" type="file" accept="audio/*"><span>＋ Audio / música</span></label>
+    <label class="upload-btn"><input id="videoInput" type="file" accept="video/*"><span>＋ Video</span></label>
+    <label class="upload-btn secondary"><input id="audioInput" type="file" accept="audio/*,video/*"><span>＋ Audio / video con audio</span></label>
   </div>
 </section>
-<section id="emptyState" class="card empty"><div class="upload-icon">＋</div><h2>Comienza con tu material bruto</h2><p>Importa un video. Después podrás añadir música o audio en una pista independiente.</p></section>
+<section id="emptyState" class="card empty"><div class="upload-icon">＋</div><h2>Comienza con tu material bruto</h2><p>Importa un video principal y, opcionalmente, un audio o un video del que quieras rescatar solo el sonido.</p></section>
 <section id="editor" class="editor hidden">
 <div class="main-column">
   <div class="preview card">
@@ -31,14 +31,14 @@
       <div class="timeline" id="timeline"><div id="timelineProgress"></div></div>
       <div id="timelineMarks" class="timeline-marks"></div>
     </div>
-    <div class="transport"><button id="backBtn">−2s</button><button id="playBtn">▶ Reproducir</button><button id="forwardBtn">+2s</button><span id="currentTime">00:00</span><span id="syncStatus" class="sync-status">Video + audio sincronizados</span></div>
+    <div class="transport"><button id="backBtn">−2s</button><button id="playBtn">▶ Reproducir</button><button id="forwardBtn">+2s</button><span id="currentTime">00:00</span><span id="syncStatus" class="sync-status">Solo video</span></div>
   </div>
 
   <div class="card media-bin">
-    <div class="section-title"><div><strong>Medios</strong><span>Video principal y música en pistas separadas</span></div><span class="step">MEDIA</span></div>
+    <div class="section-title"><div><strong>Medios</strong><span>Video principal y audio en pistas separadas</span></div><span class="step">MEDIA</span></div>
     <div class="media-grid">
       <div class="media-item"><div class="media-icon video-icon">VID</div><div class="media-copy"><b id="videoName">Ningún video</b><small id="videoMeta">Importa el video principal</small></div><button id="replaceVideo">Cambiar</button></div>
-      <div class="media-item"><div class="media-icon audio-icon">AUD</div><div class="media-copy"><b id="audioName">Sin música</b><small id="audioMeta">Importa un MP3, WAV, M4A, OGG…</small></div><button id="removeAudio" class="ghost">Quitar</button></div>
+      <div class="media-item"><div class="media-icon audio-icon">AUD</div><div class="media-copy"><b id="audioName">Sin audio</b><small id="audioMeta">MP3, WAV, M4A, OGG o video con audio</small></div><button id="removeAudio" class="ghost">Quitar</button></div>
     </div>
   </div>
 
@@ -50,10 +50,10 @@
     <div class="card-head"><div><strong>Timeline</strong><span>Pistas independientes</span></div></div>
     <div class="track-list">
       <div class="track-row"><div class="track-label"><span class="track-dot video-dot"></span>VIDEO</div><div class="track-lane" id="videoLane"><div id="videoClip" class="clip video-clip">Video principal</div></div></div>
-      <div class="track-row"><div class="track-label"><span class="track-dot audio-dot"></span>AUDIO</div><div class="track-lane" id="audioLane"><div id="audioClip" class="clip audio-clip hidden">Música</div></div></div>
+      <div class="track-row"><div class="track-label"><span class="track-dot audio-dot"></span>AUDIO</div><div class="track-lane" id="audioLane"><div id="audioClip" class="clip audio-clip hidden">Audio</div></div></div>
       <div class="playhead" id="playhead"></div>
     </div>
-    <div class="timeline-note">La pista de audio puede tener una duración distinta al video. En esta fase se conserva como pista independiente para el próximo motor de mezcla.</div>
+    <div class="timeline-note">Puedes cargar música directamente o subir un video grabado para usar solamente su pista de audio.</div>
   </div>
 
   <div class="card silence-panel"><div class="card-head"><div><strong>Recorte inteligente</strong><span>Selecciona las pausas que quieres eliminar</span></div></div>
