@@ -5,7 +5,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ClipForge — Editor de Reels</title>
-<link rel="stylesheet" href="assets/app.css?v=7">
+<link rel="stylesheet" href="assets/app.css?v=8">
+<link rel="stylesheet" href="assets/drag-v4.css?v=1">
 </head>
 <body>
 <header class="topbar">
@@ -19,7 +20,6 @@
     <div class="toolbar-group center-tools"><button id="splitBtn" class="btn" title="Dividir en el playhead (S)">✂ Dividir</button><button id="undoBtn" class="icon-btn" title="Deshacer (Ctrl+Z)">↶</button><button id="redoBtn" class="icon-btn" title="Rehacer (Ctrl+Y)">↷</button><span class="tool-sep"></span><button id="fitTimeline" class="btn">Ajustar</button><input id="zoom" type="range" min="40" max="240" value="100" aria-label="Zoom de timeline"><button id="zoomIn" class="icon-btn">＋</button><button id="zoomOut" class="icon-btn">−</button></div>
     <div class="toolbar-group right"><span id="renderStatus" class="status-label">Listo</span><button id="exportTop" class="btn accent">Exportar Reel</button></div>
   </div>
-
   <section class="editor-grid">
     <aside class="media-panel panel">
       <div class="panel-title"><div><b>Multimedia</b><small>Arrastra recursos a la timeline</small></div><button id="mediaPlus" class="icon-btn">＋</button></div>
@@ -27,7 +27,6 @@
       <div id="mediaList" class="media-list"><div class="empty-state"><span class="empty-icon">＋</span><b>Importa tu primer recurso</b><small>También puedes arrastrar un archivo aquí</small></div></div>
       <div class="media-footer"><span id="mediaCount">0 recursos</span><span>Ctrl+I importar</span></div>
     </aside>
-
     <section class="center-column">
       <div class="preview-panel panel">
         <div class="panel-title preview-title"><div><b>Preview</b><small id="previewModeLabel">Original · edición en tiempo real</small></div><div class="preview-tools"><span id="previewTime">00:00</span><button id="muteBtn" class="icon-btn">🔊</button></div></div>
@@ -37,13 +36,11 @@
       <div id="analysisBar" class="analysis-panel panel hidden"><div class="analysis-main"><span class="ai-badge">AUTO</span><div><b id="analysisTitle">Analizando…</b><small id="analysisText">Detectando pausas y preparando tu timeline.</small></div></div><div class="analysis-actions"><button id="analyzeBtn" class="btn">Reanalizar</button><button id="selectAll" class="btn danger-soft">Eliminar silencios</button><button id="selectNone" class="btn">Mantener silencios</button></div></div>
       <div id="autoPanel" class="auto-panel panel hidden"><div><b>Auto Edit</b><small>Genera una primera edición a partir del video bruto.</small></div><div class="auto-options"><label><input type="checkbox" id="autoSilence" checked> Eliminar pausas largas</label><label><input type="checkbox" id="autoRhythm"> Marcar puntos de ritmo</label><label><input type="checkbox" id="autoSubtitles"> Preparar subtítulos</label></div><div class="auto-actions"><button id="autoApply" class="btn accent">Aplicar a timeline</button><button id="autoClose" class="btn">Cerrar</button></div></div>
     </section>
-
     <aside class="inspector-panel panel">
       <div class="panel-title"><div><b>Inspector</b><small id="inspectorType">Selecciona un elemento</small></div></div>
       <div id="inspectorBody" class="inspector-body"><div class="empty-state compact"><span class="empty-icon">◈</span><b>Sin selección</b><small>Selecciona un clip, texto, audio o pausa. Clic derecho muestra opciones.</small></div></div>
     </aside>
   </section>
-
   <section class="timeline-panel panel">
     <div class="timeline-head"><div><b>Timeline</b><small id="timelineInfo">Importa un video para comenzar</small></div><div class="timeline-actions"><button id="snapBtn" class="chip active">⌁ Ajuste</button><button id="addTrack" class="chip">＋ Pista</button></div></div>
     <div class="timeline-wrap" id="timelineScroll"><div class="timeline-canvas" id="timelineCanvas">
@@ -64,5 +61,5 @@
 <input id="videoInput" type="file" accept="video/*" hidden>
 <input id="audioInput" type="file" accept="audio/*,video/*" hidden>
 <input id="projectInput" type="file" accept="application/json,.json,.clipforge" hidden>
-<script src="assets/app.js?v=7"></script>
+<script src="assets/editor-entry.js?v=2"></script>
 </body></html>
