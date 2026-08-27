@@ -7,7 +7,7 @@
 <title>ClipForge — Editor de Reels</title>
 <link rel="stylesheet" href="assets/app.css?v=9">
 <link rel="stylesheet" href="assets/drag-v4.css?v=2">
-<link rel="stylesheet" href="assets/timeline-pro.css?v=1">
+<link rel="stylesheet" href="assets/timeline-pro.css?v=2">
 </head>
 <body>
 <header class="topbar">
@@ -17,21 +17,21 @@
 </header>
 <main class="workspace">
   <div class="main-toolbar panel">
-    <div class="toolbar-group"><button id="importVideo" class="btn primary">＋ Video</button><button id="importAudio" class="btn">♪ Audio</button><button id="addText" class="btn">T Texto</button><button id="autoEditBtn" class="btn ai-btn">✦ Auto Edit</button></div>
+    <div class="toolbar-group"><button id="importVideo" class="btn primary">＋ Video</button><button id="importAudio" class="btn">♪ Audio</button><button id="importImage" class="btn">▧ Imagen</button><button id="addText" class="btn">T Texto</button><button id="autoEditBtn" class="btn ai-btn">✦ Auto Edit</button></div>
     <div class="toolbar-group center-tools"><button id="splitBtn" class="btn" title="Dividir en el playhead (S)">✂ Dividir</button><button id="undoBtn" class="icon-btn" title="Deshacer (Ctrl+Z)">↶</button><button id="redoBtn" class="icon-btn" title="Rehacer (Ctrl+Y)">↷</button><span class="tool-sep"></span><button id="fitTimeline" class="btn">Ajustar</button><input id="zoom" type="range" min="40" max="240" value="100" aria-label="Zoom de timeline"><button id="zoomIn" class="icon-btn">＋</button><button id="zoomOut" class="icon-btn">−</button></div>
     <div class="toolbar-group right"><span id="renderStatus" class="status-label">Listo</span><button id="exportTop" class="btn accent">Exportar Reel</button></div>
   </div>
   <section class="editor-grid">
     <aside class="media-panel panel">
       <div class="panel-title"><div><b>Multimedia</b><small>Arrastra recursos a la timeline</small></div><button id="mediaPlus" class="icon-btn">＋</button></div>
-      <div class="media-tabs"><button class="active" data-tab="all">Todos</button><button data-tab="video">Video</button><button data-tab="audio">Audio</button><button data-tab="text">Texto</button></div>
+      <div class="media-tabs"><button class="active" data-tab="all">Todos</button><button data-tab="video">Video</button><button data-tab="audio">Audio</button><button data-tab="image">Imágenes</button><button data-tab="text">Texto</button></div>
       <div id="mediaList" class="media-list"><div class="empty-state"><span class="empty-icon">＋</span><b>Importa tu primer recurso</b><small>También puedes arrastrar un archivo aquí</small></div></div>
       <div class="media-footer"><span id="mediaCount">0 recursos</span><span>Ctrl+I importar</span></div>
     </aside>
     <section class="center-column">
       <div class="preview-panel panel">
         <div class="panel-title preview-title"><div><b>Preview</b><small id="previewModeLabel">Original · edición en tiempo real</small></div><div class="preview-tools"><span id="previewTime">00:00</span><button id="muteBtn" class="icon-btn">🔊</button></div></div>
-        <div class="stage"><div class="reel-frame"><video id="video" playsinline preload="metadata"></video><div id="textOverlay" class="text-overlay"></div><div id="previewEmpty" class="preview-empty"><div class="empty-play">▶</div><b>Importa un video</b><span>El proyecto aparecerá aquí en formato 9:16</span></div></div></div>
+        <div class="stage"><div class="reel-frame"><video id="video" playsinline preload="metadata"></video><div id="imageOverlay" class="image-overlay"></div><div id="textOverlay" class="text-overlay"></div><div id="previewEmpty" class="preview-empty"><div class="empty-play">▶</div><b>Importa un video</b><span>El proyecto aparecerá aquí en formato 9:16</span></div></div></div>
         <div class="transport"><button id="backBtn" class="transport-btn">−2s</button><button id="playBtn" class="play-btn">▶</button><button id="forwardBtn" class="transport-btn">+2s</button><span id="currentTime">00:00</span><div class="transport-progress"><i id="transportProgress"></i></div><span id="durationLabel">00:00</span><button id="previewEditBtn" class="btn edit-preview">▶ Editado</button></div>
       </div>
       <div id="analysisBar" class="analysis-panel panel hidden"><div class="analysis-main"><span class="ai-badge">AUTO</span><div><b id="analysisTitle">Analizando…</b><small id="analysisText">Detectando pausas y preparando tu timeline.</small></div></div><div class="analysis-actions"><button id="analyzeBtn" class="btn">Reanalizar</button><button id="selectAll" class="btn danger-soft">Eliminar silencios</button><button id="selectNone" class="btn">Mantener silencios</button></div></div>
@@ -61,6 +61,7 @@
 <div id="toast" class="toast"></div>
 <input id="videoInput" type="file" accept="video/*" hidden>
 <input id="audioInput" type="file" accept="audio/*,video/*" hidden>
+<input id="imageInput" type="file" accept="image/*" hidden>
 <input id="projectInput" type="file" accept="application/json,.json,.clipforge" hidden>
-<script src="assets/editor-entry.js?v=3"></script>
+<script src="assets/editor-entry.js?v=4"></script>
 </body></html>
