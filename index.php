@@ -1,71 +1,9 @@
 <?php session_start(); ?>
 <!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ClipForge — Editor de Shorts</title>
-<link rel="stylesheet" href="assets/app.css">
-</head>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ClipForge — Editor local</title><link rel="stylesheet" href="assets/app.css"></head>
 <body>
-<header class="topbar">
-  <div class="brand"><span class="brand-mark">CF</span><div><strong>ClipForge</strong><small>Short-form editor · Local</small></div></div>
-  <div class="status"><span class="dot"></span> XAMPP / Local</div>
-</header>
-<main class="workspace">
-<section class="hero">
-  <div><p class="eyebrow">SHORTS · REELS · TIKTOK</p><h1>Edita para retener, no solo para cortar.</h1><p class="muted">Importa el video principal y añade una pista de audio independiente. En la pista de audio también puedes subir un video y ClipForge extraerá únicamente su sonido.</p></div>
-  <div class="import-actions">
-    <label class="upload-btn"><input id="videoInput" type="file" accept="video/*"><span>＋ Video</span></label>
-    <label class="upload-btn secondary"><input id="audioInput" type="file" accept="audio/*,video/*"><span>＋ Audio / video con audio</span></label>
-  </div>
-</section>
-<section id="emptyState" class="card empty"><div class="upload-icon">＋</div><h2>Comienza con tu material bruto</h2><p>Importa un video principal y, opcionalmente, un audio o un video del que quieras rescatar solo el sonido.</p></section>
-<section id="editor" class="editor hidden">
-<div class="main-column">
-  <div class="preview card">
-    <div class="card-head"><div><strong id="fileName">Vista previa</strong><span id="editHint">Sin video cargado</span></div><span id="durationLabel">00:00</span></div>
-    <video id="video" controls playsinline></video>
-    <audio id="audio" preload="metadata"></audio>
-    <div class="timeline-wrap">
-      <div class="ruler" id="ruler"></div>
-      <div class="timeline" id="timeline"><div id="timelineProgress"></div></div>
-      <div id="timelineMarks" class="timeline-marks"></div>
-    </div>
-    <div class="transport"><button id="backBtn">−2s</button><button id="playBtn">▶ Reproducir</button><button id="forwardBtn">+2s</button><span id="currentTime">00:00</span><span id="syncStatus" class="sync-status">Solo video</span></div>
-  </div>
-
-  <div class="card media-bin">
-    <div class="section-title"><div><strong>Medios</strong><span>Video principal y audio en pistas separadas</span></div><span class="step">MEDIA</span></div>
-    <div class="media-grid">
-      <div class="media-item"><div class="media-icon video-icon">VID</div><div class="media-copy"><b id="videoName">Ningún video</b><small id="videoMeta">Importa el video principal</small></div><button id="replaceVideo">Cambiar</button></div>
-      <div class="media-item"><div class="media-icon audio-icon">AUD</div><div class="media-copy"><b id="audioName">Sin audio</b><small id="audioMeta">MP3, WAV, M4A, OGG o video con audio</small></div><button id="removeAudio" class="ghost">Quitar</button></div>
-    </div>
-  </div>
-
-  <div class="card workflow"><div class="section-title"><div><strong>Ritmo del video</strong><span>Primero limpia, luego agrega estilo</span></div><span class="step">01</span></div><div class="rhythm-cards"><div><b>Hook</b><small>Los primeros segundos deben avanzar sin relleno.</small></div><div><b>Ritmo</b><small>Las pausas innecesarias rompen la atención.</small></div><div><b>Intención</b><small>No elimines silencios que aportan emoción o énfasis.</small></div></div></div>
-</div>
-
-<aside class="side-column">
-  <div class="card timeline-panel">
-    <div class="card-head"><div><strong>Timeline</strong><span>Pistas independientes</span></div></div>
-    <div class="track-list">
-      <div class="track-row"><div class="track-label"><span class="track-dot video-dot"></span>VIDEO</div><div class="track-lane" id="videoLane"><div id="videoClip" class="clip video-clip">Video principal</div></div></div>
-      <div class="track-row"><div class="track-label"><span class="track-dot audio-dot"></span>AUDIO</div><div class="track-lane" id="audioLane"><div id="audioClip" class="clip audio-clip hidden">Audio</div></div></div>
-      <div class="playhead" id="playhead"></div>
-    </div>
-    <div class="timeline-note">Puedes cargar música directamente o subir un video grabado para usar solamente su pista de audio.</div>
-  </div>
-
-  <div class="card silence-panel"><div class="card-head"><div><strong>Recorte inteligente</strong><span>Selecciona las pausas que quieres eliminar</span></div></div>
-    <div class="controls"><label><span>Umbral de silencio</span><input id="threshold" type="number" min="-80" max="-10" value="-35"><em>dB</em></label><label><span>Silencio mínimo</span><input id="minDuration" type="number" min="0.2" max="10" step="0.1" value="0.8"><em>seg</em></label></div>
-    <button id="analyzeBtn" class="primary">Detectar pausas</button><div id="analysisStatus" class="status-box hidden"></div>
-    <div id="selectionTools" class="selection-tools hidden"><button id="selectAll">Seleccionar todo</button><button id="selectNone">Quitar todo</button></div>
-    <div id="silenceList" class="silence-list"></div>
-    <div class="render-row"><button id="renderBtn" class="primary hidden">✂ Crear versión limpia</button><span id="renderStatus"></span></div>
-    <a id="downloadBtn" class="download hidden" download>↓ Descargar resultado</a>
-  </div>
-</aside>
-</section>
-</main>
-<script src="assets/app.js"></script>
-</body></html>
+<header class="topbar"><div class="brand"><span class="brand-mark">CF</span><div><strong>ClipForge</strong><small>Editor local para Shorts</small></div></div><div class="project-status"><span class="dot"></span> XAMPP · Local</div></header>
+<main class="app-shell">
+<section class="toolbar card"><div class="tool-group"><button id="importVideoBtn" class="tool primary-tool">＋ Video</button><button id="importAudioBtn" class="tool">＋ Audio</button><input id="videoInput" type="file" hidden accept="video/*"><input id="audioInput" type="file" hidden accept="audio/*,video/*"></div><div class="tool-group center-tools"><button id="undoBtn" class="tool" disabled>↶</button><button id="redoBtn" class="tool" disabled>↷</button><span class="toolbar-divider"></span><button id="splitBtn" class="tool split-tool" disabled>✂ Dividir <kbd>S</kbd></button><button id="deleteBtn" class="tool danger-tool" disabled>⌫ Eliminar</button></div><div class="tool-group"><label class="zoom-control">Zoom <input id="zoomSlider" type="range" min="40" max="220" value="90"></label><button id="fitBtn" class="tool">Ajustar</button><button id="exportBtn" class="export-btn" disabled>Exportar</button></div></section>
+<section class="workspace"><div class="left-column"><div id="emptyState" class="card empty-state"><div class="empty-icon">▶</div><h1>Empieza tu edición</h1><p>Importa un video y luego añade música o audio. Todo se organiza y edita desde la timeline.</p><div class="empty-actions"><button id="emptyVideoBtn" class="primary-btn">Importar video</button><button id="emptyAudioBtn" class="secondary-btn">Importar audio</button></div></div><div id="editorArea" class="card preview-card hidden"><div class="preview-head"><div><strong id="previewName">Vista previa</strong><span id="previewMeta">Sin material</span></div><span id="previewTime">00:00 / 00:00</span></div><div class="preview-stage"><video id="video" playsinline></video><div id="previewEmpty" class="preview-empty">Importa un video para verlo aquí</div></div><div class="transport"><button id="backBtn" class="round-btn">−2s</button><button id="playBtn" class="play-btn">▶</button><button id="forwardBtn" class="round-btn">+2s</button><span id="transportHint">Espacio reproducir · S dividir · Supr eliminar</span></div></div><div id="assetsPanel" class="card assets-panel hidden"><div class="panel-title"><div><strong>Medios</strong><span>Material del proyecto</span></div></div><div id="assetList" class="asset-list"></div></div></div><aside class="right-column"><div class="card inspector"><div class="panel-title"><div><strong>Inspector</strong><span id="inspectorHint">Selecciona un clip en la timeline</span></div></div><div id="inspectorContent" class="inspector-empty">Selecciona un clip para ver sus opciones.</div></div><div class="card rhythm-card"><div class="panel-title"><div><strong>Edición rápida</strong><span>Flujo pensado para short-form</span></div></div><div class="rhythm-list"><div><b>Hook</b><small>Evita relleno al comienzo.</small></div><div><b>Ritmo</b><small>Divide donde cambia la energía.</small></div><div><b>Intención</b><small>Conserva pausas que comunican.</small></div></div></div></aside></section>
+<section id="timelinePanel" class="card timeline-panel hidden"><div class="timeline-head"><div class="timeline-title"><strong>Timeline</strong><span id="timelineDuration">00:00</span></div><div class="timeline-actions"><span id="timelineMode">Selecciona, divide y elimina clips</span><button id="analyzeBtn" class="mini-btn">Detectar silencios</button></div></div><div class="ruler-row"><div class="track-label-space"></div><div id="ruler" class="ruler"></div></div><div id="timelineViewport" class="timeline-viewport"><div id="tracks" class="tracks"><div class="track-row" data-track="video"><div class="track-label"><span class="track-icon video-icon">▶</span><strong>VIDEO</strong></div><div id="videoLane" class="track-lane"></div></div><div class="track-row" data-track="audio"><div class="track-label"><span class="track-icon audio-icon">♫</span><strong>AUDIO</strong></div><div id="audioLane" class="track-lane"></div></div><div id="playhead" class="playhead"><span></span></div></div></div><div class="timeline-footer"><span>Arrastra el cabezal · selecciona un clip · usa ✂ Dividir o Supr</span><span id="selectionInfo">Sin selección</span></div></section><div id="statusBar" class="status-bar hidden"></div></main><script src="assets/app.js"></script></body></html>
