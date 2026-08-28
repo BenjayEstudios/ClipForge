@@ -1,7 +1,7 @@
 {
   "name":"clipforge-desktop",
-  "version":"0.5.0",
-  "description":"ClipForge - editor profesional de Reels para Windows con timeline multicapa, audio profesional, transiciones, Auto Edit y render local",
+  "version":"0.6.0",
+  "description":"ClipForge - editor profesional de Reels para Windows con motor único de composición, timeline multicapa, audio, texto, transiciones y render local",
   "main":"main.js",
   "author":"BenjayEstudios",
   "license":"MIT",
