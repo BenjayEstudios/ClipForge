@@ -64,7 +64,20 @@ async function startPhpServer() {
 
 async function createWindow() {
   const url = await startPhpServer();
-  mainWindow = new BrowserWindow({width:1440,height:920,minWidth:1000,minHeight:700,backgroundColor:'#11151b',autoHideMenuBar:true,show:false,webPreferences:{contextIsolation:true,nodeIntegration:false}});
+  mainWindow = new BrowserWindow({
+    width:1280,
+    height:820,
+    minWidth:1120,
+    minHeight:720,
+    backgroundColor:'#161b22',
+    autoHideMenuBar:true,
+    show:false,
+    center:true,
+    webPreferences:{contextIsolation:true,nodeIntegration:false}
+  });
+  try {
+    mainWindow.setTitleBarOverlay({ color:'#161b22', symbolColor:'#c6d0db', height:32 });
+  } catch (_) {}
   mainWindow.webContents.on('console-message', (_e, level, message, line, sourceId)=>console.log(`[UI ${['DEBUG','INFO','WARN','ERROR'][level]||level}] ${message} (${sourceId}:${line})`));
   mainWindow.webContents.on('did-fail-load', (_e, code, description, validatedURL)=>dialog.showErrorBox('ClipForge — Error de carga',`Código ${code}\n${description}\n${validatedURL}`));
   mainWindow.webContents.on('render-process-gone', (_e, details)=>dialog.showErrorBox('ClipForge',`La interfaz terminó: ${details.reason}`));
