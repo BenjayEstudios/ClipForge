@@ -1,11 +1,12 @@
 {
   "name":"clipforge-desktop",
-  "version":"0.2.0",
-  "description":"ClipForge - editor de Reels para Windows con timeline, Auto Edit y render local",
+  "version":"0.3.0",
+  "description":"ClipForge - editor profesional de Reels para Windows con timeline multicapa, Auto Edit y render local",
   "main":"main.js",
   "author":"BenjayEstudios",
   "license":"MIT",
   "private":true,
   "scripts":{"prepare":"node prepare-build.js","start":"npm run prepare && electron .","dist":"npm run prepare && electron-builder --win nsis","pack":"npm run prepare && electron-builder --win dir"},
   "devDependencies":{"electron":"^38.1.0","electron-builder":"^26.0.12"},
-  "build":{"appId":"cl.clipforge.desktop","productName":"ClipForge","asar":false,"directories":{"output":"dist"},"files":["main.js","package.json","prepare-build.js","web/**/*"],"extraResources":[{"from":"runtime","to":"runtime","filter":["**/*"]}],"win":{"target":[{"target":"nsis","arch":["x64"]}],"artifactName":"ClipForge-Setup-${version}.exe"},"nsis":{"oneClick":false,"allowToChangeInstallationDirectory":true,"createDesktopShortcut":true,"createStartMenuShortcut":true,"shortcutName":"ClipForge"}}}
+  "build":{"appId":"cl.clipforge.desktop","productName":"ClipForge","asar":false,"directories":{"output":"dist"},"files":["main.js","package.json","prepare-build.js","web/**/*"],"extraResources":[{"from":"runtime","to":"runtime","filter":["**/*"]}],"win":{"target":[{"target":"nsis","arch":["x64"]}],"artifactName":"ClipForge-Setup-${version}.exe"},"nsis":{"oneClick":false,"allowToChangeInstallationDirectory":true,"createDesktopShortcut":true,"createStartMenuShortcut":true,"shortcutName":"ClipForge"}}
+}
