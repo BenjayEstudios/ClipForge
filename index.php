@@ -5,9 +5,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ClipForge — Editor de Reels</title>
-<link rel="stylesheet" href="assets/app.css?v=9">
+<link rel="stylesheet" href="assets/app.css?v=10">
 <link rel="stylesheet" href="assets/drag-v4.css?v=2">
-<link rel="stylesheet" href="assets/timeline-pro.css?v=2">
+<link rel="stylesheet" href="assets/timeline-pro.css?v=3">
+<link rel="stylesheet" href="assets/window-layout.css?v=2">
 </head>
 <body>
 <header class="topbar">
@@ -19,7 +20,7 @@
   <div class="main-toolbar panel">
     <div class="toolbar-group"><button id="importVideo" class="btn primary">＋ Video</button><button id="importAudio" class="btn">♪ Audio</button><button id="importImage" class="btn">▧ Imagen</button><button id="addText" class="btn">T Texto</button><button id="autoEditBtn" class="btn ai-btn">✦ Auto Edit</button></div>
     <div class="toolbar-group center-tools"><button id="splitBtn" class="btn" title="Dividir en el playhead (S)">✂ Dividir</button><button id="undoBtn" class="icon-btn" title="Deshacer (Ctrl+Z)">↶</button><button id="redoBtn" class="icon-btn" title="Rehacer (Ctrl+Y)">↷</button><span class="tool-sep"></span><button id="fitTimeline" class="btn">Ajustar</button><input id="zoom" type="range" min="40" max="240" value="100" aria-label="Zoom de timeline"><button id="zoomIn" class="icon-btn">＋</button><button id="zoomOut" class="icon-btn">−</button></div>
-    <div class="toolbar-group right"><span id="renderStatus" class="status-label">Listo</span><button id="exportTop" class="btn accent">Exportar Reel</button></div>
+    <div class="toolbar-group right"><span id="renderStatus" class="status-label">Listo</span></div>
   </div>
   <section class="editor-grid">
     <aside class="media-panel panel">
@@ -63,5 +64,5 @@
 <input id="audioInput" type="file" accept="audio/*,video/*" hidden>
 <input id="imageInput" type="file" accept="image/*" hidden>
 <input id="projectInput" type="file" accept="application/json,.json,.clipforge" hidden>
-<script src="assets/editor-entry.js?v=4"></script>
+<script src="assets/editor-entry.js?v=5"></script>
 </body></html>
