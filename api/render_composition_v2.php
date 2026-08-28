@@ -1,0 +1,17 @@
+<?php
+require __DIR__ . '/config.php';
+if($_SERVER['REQUEST_METHOD']!=='POST')json_response(['ok'=>false,'error'=>'Método no permitido.'],405);
+$p=json_decode(file_get_contents('php://input'),true)?:[];$media=is_array($p['media']??null)?$p['media']:[];$tracks=is_array($p['tracks']??null)?$p['tracks']:[];$clips=is_array($p['clips']??null)?$p['clips']:[];$settings=is_array($p['settings']??null)?$p['settings']:[];
+$W=max(1,min(3840,(int)($settings['width']??1080)));$H=max(1,min(3840,(int)($settings['height']??1920)));$fps=max(1,min(120,(int)($settings['fps']??30)));
+function rf_media(array $all,string $id):?array{foreach($all as $m)if((string)($m['id']??'')===$id)return$m;return null;}
+function rf_file(?array $m):?string{if(!$m)return null;$id=preg_replace('/[^a-zA-Z0-9_-]/','',(string)($m['id']??''));$kind=$m['kind']??'';$dir=$kind==='audio'?AUDIO_DIR:VIDEO_DIR;foreach(glob($dir.DIRECTORY_SEPARATOR.$id.'.*')?:[] as $f)if(is_file($f))return$f;return null;}
+$video=array_values(array_filter($clips,fn($c)=>($c['kind']??'')==='video'));usort($video,fn($a,$b)=>($a['start']??0)<=>($b['start']??0));if(!$video)json_response(['ok'=>false,'error'=>'No hay video en la composición.'],422);
+$inputs=[];$filters=[];$vlabels=[];$alabels=[];$inputIndex=0;
+foreach($video as $i=>$c){$m=rf_media($media,(string)($c['sourceId']??''));$f=rf_file($m);if(!$f)continue;$inputs[]='-i '.escapeshellarg($f);$start=max(0,(float)($c['sourceStart']??0));$dur=max(.02,(float)($c['end']??0)-(float)($c['start']??0));$filters[]="[$inputIndex:v]trim=start=$start:duration=$dur,setpts=PTS-STARTPTS,scale=$W:$H:force_original_aspect_ratio=increase,crop=$W:$H,format=yuv420p[v$i]";$vlabels[]="[v$i]";$inputIndex++;}
+if(!$vlabels)json_response(['ok'=>false,'error'=>'No se encontraron archivos de video para los clips.'],404);
+$filters[] = implode('',$vlabels).'concat=n='.count($vlabels).':v=1:a=0[vout]';
+$audio=array_values(array_filter($clips,fn($c)=>($c['kind']??'')==='audio'));$voice=null;
+foreach($audio as $c){$m=rf_media($media,(string)($c['sourceId']??''));$f=rf_file($m);if(!$f)continue;$start=max(0,(float)($c['sourceStart']??0));$dur=max(.02,(float)($c['end']??0)-(float)($c['start']??0));$vol=max(0,min(4,(float)($c['volume']??1)));$filters[]="[$inputIndex:a]atrim=start=$start:duration=$dur,asetpts=PTS-STARTPTS,volume=$vol,aresample=48000[a$inputIndex]";$alabels[]="[a$inputIndex]";$inputs[]='-i '.escapeshellarg($f);$inputIndex++;}
+if($alabels){$filters[]=implode('',$alabels).'amix=inputs='.count($alabels).':duration=longest:dropout_transition=2,aresample=48000[aout]';}else{$filters[]='anullsrc=r=48000:cl=stereo,atrim=duration=1[aout]';}
+$out=OUTPUT_DIR.DIRECTORY_SEPARATOR.bin2hex(random_bytes(8)).'.mp4';$cmd=FFMPEG_BIN.' -hide_banner -loglevel error -y '.implode(' ',$inputs).' -filter_complex '.escapeshellarg(implode(';',$filters)).' -map '.escapeshellarg('[vout]').' -map '.escapeshellarg('[aout]').' -r '.escapeshellarg((string)$fps).' -c:v libx264 -preset medium -crf 19 -pix_fmt yuv420p -c:a aac -b:a 192k -ar 48000 -ac 2 -movflags +faststart '.escapeshellarg($out).' 2>&1';
+$lines=[];$code=0;exec($cmd,$lines,$code);if($code!==0||!is_file($out))json_response(['ok'=>false,'error'=>'El motor de composición no pudo renderizar.','details'=>implode("\n",$lines)],422);json_response(['ok'=>true,'url'=>'storage/outputs/'.basename($out),'file'=>basename($out),'format'=>$W.'x'.$H,'fps'=>$fps,'video_clips'=>count($video),'audio_clips'=>count($audio),'engine'=>'composition-v2']);
